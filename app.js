@@ -23,13 +23,22 @@ app.set("partials", "./views/partials");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.post("/", function (req, res) {
-  const text = req.body.text_area;
-  console.log(text);
+const posts = [];
+
+app.post("/compose", function (req, res) {
+  const post = {
+    title: req.body.title,
+    content: req.body.post,
+  };
+  posts.push(post);
+  res.redirect("/");
 });
 
 app.get("/", function (req, res) {
-  res.render("home", { homeStartingContent: homeStartingContent });
+  res.render("home", {
+    homeStartingContent: homeStartingContent,
+    posts: posts,
+  });
 });
 
 app.get("/about", function (req, res) {
