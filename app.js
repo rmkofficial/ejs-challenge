@@ -17,22 +17,31 @@ const app = express();
 app.set("view engine", "ejs");
 
 app.set("views", "./views");
-app.use(express.static('public'));
-app.set('partials', './views/partials');
+app.use(express.static("public"));
+app.set("partials", "./views/partials");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+app.post("/", function (req, res) {
+  const text = req.body.text_area;
+  console.log(text);
+});
+
 app.get("/", function (req, res) {
-  res.render("home",{homeStartingContent: homeStartingContent});
+  res.render("home", { homeStartingContent: homeStartingContent });
 });
 
-app.get('/about', function(req, res) {
-  res.render('about', { aboutContent:  aboutContent});
+app.get("/about", function (req, res) {
+  res.render("about", { aboutContent: aboutContent });
 });
 
-app.get('/contact', function(req, res) {
-  res.render('contact', { contactContent:  contactContent});
+app.get("/contact", function (req, res) {
+  res.render("contact", { contactContent: contactContent });
+});
+
+app.get("/compose", function (req, res) {
+  res.render("compose");
 });
 
 app.listen(3000, function () {
